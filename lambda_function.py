@@ -53,13 +53,11 @@ def get_welcome_response():
 
     session_attributes = {}
     card_title = "Welcome"
-    speech_output = "Welcome to the Alexa Skills Kit sample. " \
-                    "Please tell me your favorite color by saying, " \
-                    "my favorite color is red"
+    speech_output = "Welcome to the Alexa Weather Network API project. " \
+                    "Please ask me an questions relating to weather such as, What is the weather right now?"
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Please tell me your favorite color by saying, " \
-                    "my favorite color is red."
+    reprompt_text = "Please ask me an questions relating to weather such as, What is the weather in Kingston Ontario Canada?"
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -67,45 +65,12 @@ def get_welcome_response():
 
 def handle_session_end_request():
     card_title = "Session Ended"
-    speech_output = "Thank you for trying the Alexa Skills Kit sample. " \
+    speech_output = "Thank you for trying the Alexa Weather Network API project. " \
                     "Have a nice day! "
     # Setting this to true ends the session and exits the skill.
     should_end_session = True
     return build_response({}, build_speechlet_response(
         card_title, speech_output, None, should_end_session))
-
-
-def create_favorite_color_attributes(favorite_color):
-    return {"favoriteColor": favorite_color}
-
-
-def set_color_in_session(intent, session):
-    """ Sets the color in the session and prepares the speech to reply to the
-    user.
-    """
-
-    card_title = intent['name']
-    session_attributes = {}
-    should_end_session = False
-
-    if 'Color' in intent['slots']:
-        favorite_color = intent['slots']['Color']['value']
-        session_attributes = create_favorite_color_attributes(favorite_color)
-        speech_output = "I now know your favorite color is " + \
-                        favorite_color + \
-                        ". You can ask me your favorite color by saying, " \
-                        "what's my favorite color?"
-        reprompt_text = "You can ask me your favorite color by saying, " \
-                        "what's my favorite color?"
-    else:
-        speech_output = "I'm not sure what your favorite color is. " \
-                        "Please try again."
-                        
-        reprompt_text = "I'm not sure what your favorite color is. " \
-                        "You can tell me your favorite color by saying, " \
-                        "my favorite color is red."
-    return build_response(session_attributes, build_speechlet_response(
-        card_title, speech_output, reprompt_text, should_end_session))
 
 def send_sms(information, phoneName):
     # Find these values at https://twilio.com/user/account
@@ -287,51 +252,6 @@ def get_weather_observation(intent):
     return build_response(session_attributes, build_speechlet_response(
         intent['name'], speech_output, reprompt_text, should_end_session))
         
-def get_weather_observation(intent):
-    session_attributes = {}
-    reprompt_text = None
-    speech_output = None
-    should_end_session = False
-    
-    city = intent['slots']['City']
-    region = intent['slots']['Region']
-    country = intent['slots']['Country']
-    
-    print (intent)
-    print ((('value' in city) and ('value' in region) and ('value' in country)))
-    print ((('value' not in city) and ('value' not in region) and ('value' not in country)))
-    
-    if (('value' in city) and ('value' in region) and ('value' in country)):
-        cityPhrase = city['value']
-        # Must replace spaces with "+"
-        URL = "https://hackathon.pic.pelmorex.com/api/search/string?keyword="+city['value'].replace(" ","+")+"&prov="+region['value'].replace(" ","+")+"&country="+country['value'].replace(" ","+")+"&locale=en-US"
-    elif (('value' not in city) and ('value' not in region) and ('value' not in country)):
-        cityPhrase = "London"
-        URL = "https://hackathon.pic.pelmorex.com/api/search/string?keyword=London&prov=ON&country=Canada&locale=en-US"
-    else:
-        speech_output = "Please specify the city, region and country together."
-                        
-        reprompt_text = "I'm not sure what place you are referring to. " \
-                        "You can ask me about the weather by saying, What is the weather in London Ontario Canada"
-        return build_response(session_attributes, build_speechlet_response(
-            intent['name'], speech_output, reprompt_text, should_end_session))
-    
-    response = urllib.request.urlopen(URL)
-    info = json.loads(response.read())
-    #print (info["code"])
-    data_ob = "https://hackathon.pic.pelmorex.com/api/data/observation?locationcode="+info["code"]
-    response = urllib.request.urlopen(data_ob)
-    observation = json.loads(response.read())
-    
-    speech_output = "The temperature in " + cityPhrase +" is " + observation["data"]["temp"] + " degrees celsius."
-    should_end_session = True
-
-    # Setting reprompt_text to None signifies that we do not want to reprompt
-    # the user. If the user does not respond or says something that is not
-    # understood, the session will end.
-    return build_response(session_attributes, build_speechlet_response(
-        intent['name'], speech_output, reprompt_text, should_end_session))
-
 def champions(intent):
     session_attributes = {}
     reprompt_text = None
@@ -376,11 +296,7 @@ def on_intent(intent_request, session):
     intent_name = intent_request['intent']['name']
 
     # Dispatch to your skill's intent handlers
-    if intent_name == "MyColorIsIntent":
-        return set_color_in_session(intent, session)
-    elif intent_name == "WhatsMyColorIntent":
-        return get_color_from_session(intent, session)
-    elif intent_name == "AMAZON.HelpIntent":
+    if intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
