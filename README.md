@@ -45,6 +45,8 @@ simple use of a voice command. The project was created during a 36 hour hacking 
   * Runtime Language: Python 3.6
   * See lambda_function.py for python runtime code.
   * ZIP full repo into a .zip file for AWS Lambda upload to ensure all neccessary python modules are included. 
+* Twilio : https://www.twilio.com
+  * Used Twilio python module for sending text messages to user with weather information.
 
 ## How to use
 1. Create an Amazon Developer Account at https://developer.amazon.com/
