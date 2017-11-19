@@ -2,7 +2,13 @@
 An Amazon Alexa skill set created for integration with The Weather Network REST API.
 
 ## The Idea
-
+The intention of this project was to make use of The Weather Network API in a creative fashion.
+This was done through the use of the developer tools provided with Amazon Alexa. A custom skill set
+that can be invoked using "Alexa, ask The Weather Network \<command\>" was created. The skill set 
+provides basic weather information for the current location currently or on a future date. Additionally
+the functionality was extended to provide recommendations on the type of transportation to use when travelling 
+to work or school. The system can also send individuals an SMS with relevant weather information with the 
+simple use of a voice command. The project was created during a 36 hour hacking period at Hack Western 4.
 
 ## Command Types
 * Current Weather Information: What is the weather?
@@ -18,7 +24,13 @@ An Amazon Alexa skill set created for integration with The Weather Network REST 
 
 ## The Code
 * lambda_function.py
+	* Python code for all backend command processing.
+	* Created to run on Amazon Lambda server with all necessary python modules being provided in this repo.
+	* See "How to use" section for more information on how to get started.
 * language_model/language_model.json
+	* Intents, Custom Slot Types, and Utterances for use by Amazon Alexa Developer console.
+	* Used in an interactive model for interaction between human and echo.
+	* See "How to use" section for more information on how to get started.
 
 ## Tools Used
 * Amazon Developer Console : https://developer.amazon.com/
@@ -35,6 +47,22 @@ An Amazon Alexa skill set created for integration with The Weather Network REST 
   * ZIP full repo into a .zip file for AWS Lambda upload to ensure all neccessary python modules are included. 
 
 ## How to use
+1. Create an Amazon Developer Account at https://developer.amazon.com/
+2. Create an Amazon AWS Lambda function using https://console.aws.amazon.com/lambda/
+	1. Ensure runtime Language is set to Python 3.6.
+	2. Handler is set to "lambda_function.lambda_handler".
+	3. The "Alexa Skills Kit" trigger is added to the function.
+	4. Make note of the ARN (Amazon Resource Name) noted at the top of the webpage for future use.
+	5. Upload a ZIP archive (make a ZIP at the top level of this repo to ensure all python libraries are included) to the Lambda function.
+3. In the Amazon Developer Console
+	1. Create a new custom skill for Amazon Alexa using the following:
+		1. Name: WeatherNetwork
+		2. Invocation Name: The Weather Network
+		3. For Interaction Model use JSON found in language_model/language_model.json
+		4. Service EndPoint Type: AWS Lambda ARN
+		5. Default EndPoint: \<your ARN address from step 2\>
+		6. Test your custom skill set appropriately.
+4. You're all set! You are now ready to use Amazon Alexa with the custom Weather Network API.
 
 ## References/Resources
  * Amazon Developer Console - https://developer.amazon.com/
@@ -45,6 +73,9 @@ An Amazon Alexa skill set created for integration with The Weather Network REST 
 
 ## Expansion Ideas
  * MMS Trend Graphs
+ 	* Allow users to send trend graphs such as wind speed, min and max temperature, etc. for the last 7 days to a user's cell phone. This expands on the current SMS capability to allow MMS messages. Where valuable statistics can be presented in graphical format.
+	* Example created:
+	* ![Alt text](sampleTrendGraph.png?raw=true)
 
 ## Authors
 * Parv Mital
