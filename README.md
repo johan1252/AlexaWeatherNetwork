@@ -73,7 +73,7 @@ simple use of a voice command. The project was created during a 36 hour hacking 
 
 ## Expansion Ideas
  * MMS Trend Graphs
- 	* Allow users to send trend graphs such as wind speed, min and max temperature, etc. for the last 7 days to a user's cell phone. This expands on the current SMS capability to allow MMS messages. Where valuable statistics can be presented in graphical format.
+ 	* Allow users to send trend graphs such as wind speed, min and max temperature, etc. for the next 7 days to a user's cell phone. This expands on the current SMS capability to allow MMS messages. Where valuable statistics can be presented in graphical format.
 	* Example created:
 	* ![Alt text](sampleTrendGraph.png?raw=true)
 
