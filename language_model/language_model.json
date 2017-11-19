@@ -1,0 +1,310 @@
+{
+  "languageModel": {
+    "types": [
+      {
+        "name": "custom_regions",
+        "values": [
+          {
+            "id": null,
+            "name": {
+              "value": "AMAZON.US_STATE",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "Ontario",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "Quebec",
+              "synonyms": []
+            }
+          }
+        ]
+      },
+      {
+        "name": "method",
+        "values": [
+          {
+            "id": null,
+            "name": {
+              "value": "bike",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "walk",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "run",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "motorcycle",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "bicycle",
+              "synonyms": []
+            }
+          }
+        ]
+      },
+      {
+        "name": "MsgType",
+        "values": [
+          {
+            "id": null,
+            "name": {
+              "value": "SMS",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "text message",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "message",
+              "synonyms": []
+            }
+          }
+        ]
+      },
+      {
+        "name": "MsgTypeImage",
+        "values": [
+          {
+            "id": null,
+            "name": {
+              "value": "MMS",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "media message",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "picture message",
+              "synonyms": []
+            }
+          }
+        ]
+      },
+      {
+        "name": "PhoneName",
+        "values": [
+          {
+            "id": null,
+            "name": {
+              "value": "Mitchell",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "Parv",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "Johan",
+              "synonyms": []
+            }
+          }
+        ]
+      },
+      {
+        "name": "WeatherWord",
+        "values": [
+          {
+            "id": null,
+            "name": {
+              "value": "weather",
+              "synonyms": []
+            }
+          },
+          {
+            "id": null,
+            "name": {
+              "value": "temperature",
+              "synonyms": []
+            }
+          }
+        ]
+      }
+    ],
+    "intents": [
+      {
+        "name": "AMAZON.CancelIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.HelpIntent",
+        "samples": []
+      },
+      {
+        "name": "AMAZON.StopIntent",
+        "samples": []
+      },
+      {
+        "name": "BikeAlert",
+        "samples": [
+          "Should I {TranspoMethod} to work today",
+          "Should I {TranspoMethod} today",
+          "Should I {TranspoMethod} to school today"
+        ],
+        "slots": [
+          {
+            "name": "TranspoMethod",
+            "type": "method"
+          }
+        ]
+      },
+      {
+        "name": "Champions",
+        "samples": [
+          "What team made the best use of The Weather Network API",
+          "Which team made the best use of The Weather Network API",
+          "Who made the best use of The Weather Network API",
+          "Who used The Weather Network API the best"
+        ],
+        "slots": []
+      },
+      {
+        "name": "SendWeatherInfo",
+        "samples": [
+          "Send an {MsgType} to {PhoneName} with {WeatherWord} for {City} {Region} {Country} on {Date}",
+          "Send an {MsgType} to {PhoneName} with {WeatherWord} for {City} {Region} {Country} for {Date}",
+          "Send an {MsgType} to {PhoneName} with {WeatherWord} for {City} {Region} {Country}",
+          "Send an {MsgType} to {PhoneName} with {WeatherWord}",
+          "Send an {MsgType} to {PhoneName} with {WeatherWord} on {Date}",
+          "Send an {MsgType} to {PhoneName} with {WeatherWord} for {Date}",
+          "Send {PhoneName} an {MsgType} with {WeatherWord} for {City} {Region} {Country}",
+          "Send {PhoneName} an {MsgType} with {WeatherWord}",
+          "Send {PhoneName} an {MsgType} with {WeatherWord} on {Date}",
+          "Send {PhoneName} an {MsgType} with {WeatherWord} for {Date}"
+        ],
+        "slots": [
+          {
+            "name": "Date",
+            "type": "AMAZON.DATE"
+          },
+          {
+            "name": "City",
+            "type": "AMAZON.US_CITY"
+          },
+          {
+            "name": "Region",
+            "type": "custom_regions"
+          },
+          {
+            "name": "Country",
+            "type": "AMAZON.Country"
+          },
+          {
+            "name": "WeatherWord",
+            "type": "WeatherWord"
+          },
+          {
+            "name": "PhoneName",
+            "type": "PhoneName"
+          },
+          {
+            "name": "MsgType",
+            "type": "MsgType"
+          }
+        ]
+      },
+      {
+        "name": "WeatherDate",
+        "samples": [
+          "What is the {WeatherWord} {Date}",
+          "What is the {WeatherWord} in {City} {Region} {Country} on {Date}",
+          "What is the {WeatherWord} on {Date} in {City} {Region} {Country}"
+        ],
+        "slots": [
+          {
+            "name": "Date",
+            "type": "AMAZON.DATE"
+          },
+          {
+            "name": "City",
+            "type": "AMAZON.US_CITY"
+          },
+          {
+            "name": "Region",
+            "type": "custom_regions"
+          },
+          {
+            "name": "Country",
+            "type": "AMAZON.Country"
+          },
+          {
+            "name": "WeatherWord",
+            "type": "WeatherWord"
+          }
+        ]
+      },
+      {
+        "name": "WeatherObservation",
+        "samples": [
+          "What is the {WeatherWord} in {City} {Region} {Country}",
+          "What is the {WeatherWord} like",
+          "What is the {WeatherWord} right now",
+          "What is the {WeatherWord} outside"
+        ],
+        "slots": [
+          {
+            "name": "City",
+            "type": "AMAZON.US_CITY"
+          },
+          {
+            "name": "Region",
+            "type": "custom_regions"
+          },
+          {
+            "name": "Country",
+            "type": "AMAZON.Country"
+          },
+          {
+            "name": "WeatherWord",
+            "type": "WeatherWord"
+          }
+        ]
+      }
+    ],
+    "invocationName": "the weather network"
+  }
+}
